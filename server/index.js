@@ -2,6 +2,8 @@ import cors from "cors";
 import * as dotenv from "dotenv";
 import mongoose, { connect } from "mongoose";
 import express from "express";
+import PostRouter from "./routes/Posts.js";
+import GenerateImageRouter from "./routes/GenerateImage.js";
 
 dotenv.config();
 
@@ -21,9 +23,13 @@ app.use((err,req,res,next)=> {
   });
 });
 
+app.use("/api/posts", PostRouter);
+
+app.use("/api/generate-image", GenerateImageRouter);
+
 //Default get
 
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
     res.status(200).json({
         message: "Welcome to Geneitro Server !",
     });
